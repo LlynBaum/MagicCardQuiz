@@ -8,16 +8,16 @@ import ch.bbw.lb.quiz.ToughnessQuiz;
 public class Main {
 
     private final static int ROUNDS = 5;
-
     private static String userName = null;
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
         printTitle();
         login();
 
         while (true) {
             printMenu();
-            var quiz = readInput();
+            var quiz = setUpQuiz();
             if(quiz == null) {
                 continue;
             }
@@ -46,17 +46,17 @@ public class Main {
         System.out.println(resultString);
     }
 
-    private static IQuiz readInput() {
+    private static IQuiz setUpQuiz() {
         var input = System.console().readLine();
         var categoryIndex = Integer.parseInt(input);
 
         switch (categoryIndex) {
             case 1:
-                return new CostsQuiz();
+                return new CostsQuiz(userName);
             case 2:
-                return new PowerQuiz();
+                return new PowerQuiz(userName);
             case 3:
-                return new ToughnessQuiz();
+                return new ToughnessQuiz(userName);
             default:
                 System.out.println("Invalid category index");
                 System.out.println("Please provide a valid category index");

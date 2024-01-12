@@ -1,8 +1,17 @@
 package ch.bbw.lb.quiz;
 
+import ch.bbw.lb.db.PowerQueryHandler;
+
 import java.util.Map;
 
 public class ToughnessQuiz implements IQuiz {
+
+    private final PowerQueryHandler powerQueryHandler;
+
+    public ToughnessQuiz(String username) {
+        powerQueryHandler = new PowerQueryHandler(username);
+    }
+
     @Override
     public void start() {
         System.out.println("Toughness quiz started");

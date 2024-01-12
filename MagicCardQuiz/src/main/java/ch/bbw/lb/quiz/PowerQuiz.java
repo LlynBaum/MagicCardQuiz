@@ -1,8 +1,17 @@
 package ch.bbw.lb.quiz;
 
+import ch.bbw.lb.db.PowerQueryHandler;
+
 import java.util.Map;
 
 public class PowerQuiz implements IQuiz {
+
+    private final PowerQueryHandler powerQueryHandler;
+
+    public PowerQuiz(String username) {
+        this.powerQueryHandler = new PowerQueryHandler(username);
+    }
+
     @Override
     public void start() {
         System.out.println("Power quiz started");
