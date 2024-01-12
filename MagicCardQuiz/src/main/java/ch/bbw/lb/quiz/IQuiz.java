@@ -1,10 +1,11 @@
 package ch.bbw.lb.quiz;
 
+import java.util.Map;
+
 public interface IQuiz {
 
     void start();
-    void getNextQuestion();
-    void checkAnswer(String answer);
-    void end();
-    void getStatistics();
+    Map<String, Integer> getNextQuestion();
+    boolean checkAnswer(int index);
+    Statistics end();
 }

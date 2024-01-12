@@ -1,5 +1,7 @@
 package ch.bbw.lb.quiz;
 
+import java.util.Map;
+
 public class ToughnessQuiz implements IQuiz {
     @Override
     public void start() {
@@ -7,22 +9,18 @@ public class ToughnessQuiz implements IQuiz {
     }
 
     @Override
-    public void getNextQuestion() {
+    public Map<String, Integer> getNextQuestion() {
 
+        return null;
     }
 
     @Override
-    public void checkAnswer(String answer) {
-
+    public boolean checkAnswer(int index) {
+        return false;
     }
 
     @Override
-    public void end() {
-
-    }
-
-    @Override
-    public void getStatistics() {
-
+    public Statistics end() {
+        return null;
     }
 }
