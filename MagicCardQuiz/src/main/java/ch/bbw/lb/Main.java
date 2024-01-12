@@ -6,8 +6,14 @@ import ch.bbw.lb.quiz.PowerQuiz;
 import ch.bbw.lb.quiz.ToughnessQuiz;
 
 public class Main {
+
+    private final static int ROUNDS = 5;
+
+    private static String userName = null;
+
     public static void main(String[] args) {
         printTitle();
+        login();
 
         while (true) {
             printMenu();
@@ -16,7 +22,28 @@ public class Main {
                 continue;
             }
             quiz.start();
+
+            for (var q = 0; q < ROUNDS; q++) {
+                askQuestion(quiz);
+            }
         }
+    }
+
+    private static void askQuestion(IQuiz quiz) {
+        var question = quiz.getNextQuestion();
+
+        for (var q : question.keySet()) {
+            System.out.println("- " + q);
+        }
+
+        System.out.println(question);
+        var answer = System.console().readLine();
+
+        var answerIndex = question.get(answer);
+        var isCorrect = quiz.checkAnswer(answerIndex);
+
+        var resultString = isCorrect ? "Correct!" : "Wrong!";
+        System.out.println(resultString);
     }
 
     private static IQuiz readInput() {
@@ -55,5 +82,12 @@ public class Main {
         System.out.println(topLine);
         System.out.println(middleLine);
         System.out.println(bottomLine);
+    }
+
+    private static void login() {
+       while (userName.isBlank()) {
+           System.out.println("Please enter your username:");
+           userName = System.console().readLine();
+       }
     }
 }
