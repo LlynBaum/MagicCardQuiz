@@ -1,5 +1,4 @@
-var conn = new Mongo();
-var db = conn.getDB("MagicCardQuiz");
+db = db.getSiblingDB('MagicCardQuiz');
 
 db.createCollection("statistics");
 db.createCollection("cards");
