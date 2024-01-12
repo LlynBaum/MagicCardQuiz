@@ -1,5 +1,5 @@
 package ch.bbw.lb.quiz;
 
-public record Statistics(int correctAnswers, int wrongAnswers, int totalQuestions) {
+public record Statistics(int correctAnswers, int wrongAnswers) {
 
 }

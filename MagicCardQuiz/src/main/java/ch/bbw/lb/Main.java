@@ -5,26 +5,40 @@ import ch.bbw.lb.quiz.IQuiz;
 import ch.bbw.lb.quiz.PowerQuiz;
 import ch.bbw.lb.quiz.ToughnessQuiz;
 
+import java.util.Objects;
+
 public class Main {
 
     private final static int ROUNDS = 5;
     private static String userName = null;
 
-    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
         printTitle();
         login();
 
-        while (true) {
+        String again = "y";
+
+        while (Objects.equals(again, "y")) {
             printMenu();
             var quiz = setUpQuiz();
             if(quiz == null) {
                 continue;
             }
-            quiz.start();
 
+            quiz.start();
             for (var q = 0; q < ROUNDS; q++) {
                 askQuestion(quiz);
+            }
+            var result = quiz.end();
+
+            System.out.println("You got " + result.correctAnswers() + " answers correct!");
+            System.out.println("You got " + result.wrongAnswers() + " answers wrong!");
+
+            System.out.println("Do you want to play again? (y/n)");
+            again = System.console().readLine();
+            if(Objects.equals(again, "n")) {
+                userName = null;
+                break;
             }
         }
     }
