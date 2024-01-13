@@ -23,9 +23,10 @@ public class QuizQueryHandler extends QueryHandlerBase {
                     new Document("$sort", new Document(property, -1))
             ));
 
-            closeMongoClient();
-
             var cards = randomCards.map(QuizQueryHandler::toCard).into(List.of());
+            System.out.println("Got question: " + cards.get(0).getName());
+
+            closeMongoClient();
             return new QuizQueryResult(cards.toArray(Card[]::new), cards.get(0).getName());
 
         } catch (Exception e) {

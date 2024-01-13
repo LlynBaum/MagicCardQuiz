@@ -19,7 +19,9 @@ public abstract class QueryHandlerBase {
         if (mongoClient == null) {
             mongoClient = MongoClients.create(CONNECTION_STRING);
         }
-        return mongoClient.getDatabase("MagicCardQuiz").getCollection(collectionName);
+        var collection = mongoClient.getDatabase("MagicCardQuiz").getCollection(collectionName);
+        System.out.println("Connected to MongoDB!");
+        return collection;
     }
 
     protected void closeMongoClient() {

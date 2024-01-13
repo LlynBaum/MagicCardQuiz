@@ -4,11 +4,13 @@ import ch.bbw.lb.quiz.Quiz;
 import ch.bbw.lb.quiz.QuizType;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Main {
 
     private final static int ROUNDS = 5;
     private static String userName = null;
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         printTitle();
@@ -39,6 +41,11 @@ public class Main {
 
     private static void askQuestion(Quiz quiz) {
         var question = quiz.getNextQuestion();
+
+        if(question == null) {
+            System.out.println("OOPS! Something went wrong!");
+            return;
+        }
 
         System.out.println(question.question());
         System.out.println("Choose one of the following answers:");
@@ -103,19 +110,19 @@ public class Main {
 
     private static boolean getPlayAgain() {
         System.out.println("Do you want to play again? (y/n)");
-        var input = System.console().readLine();
+        var input = scanner.nextLine();
         return Objects.equals(input, "y");
     }
 
     private static void login() {
-       while (userName.isBlank()) {
+       while (userName == null || userName.isBlank()) {
            System.out.println("Please enter your username:");
-           userName = System.console().readLine();
+           userName = scanner.nextLine();
        }
     }
 
     private static Integer readInt() {
-        var input = System.console().readLine();
+        var input = scanner.nextLine();
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {

@@ -25,6 +25,11 @@ public class Quiz {
 
     public QuizQuestion getNextQuestion() {
         currentQuestion = quizQueryHandler.getQuestion(quizType.getPropertyName());
+
+        if(currentQuestion == null) {
+            return null;
+        }
+
         return new QuizQuestion("What is the most expensive card?", new String[]{
                 currentQuestion.cards()[0].getName(),
                 currentQuestion.cards()[1].getName(),
