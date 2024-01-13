@@ -42,23 +42,32 @@ public class Main {
     private static void askQuestion(IQuiz quiz) {
         var question = quiz.getNextQuestion();
 
-        for (var q : question.keySet()) {
-            System.out.println("- " + q);
+        System.out.println(question.getQuestion());
+        System.out.println("Choose one of the following answers:");
+
+        var answers = question.getAnswers();
+        for (var i = 0; i < answers.length; i++) {
+            System.out.println((i + 1) + ". " + answers[i]);
         }
 
-        System.out.println(question);
-        var answer = System.console().readLine();
+        Integer answerIndex = null;
 
-        var answerIndex = question.get(answer);
+        while (answerIndex == null) {
+            answerIndex = readInt();
+        }
+
         var isCorrect = quiz.checkAnswer(answerIndex);
-
         var resultString = isCorrect ? "Correct!" : "Wrong!";
         System.out.println(resultString);
     }
 
     private static IQuiz setUpQuiz() {
-        var input = System.console().readLine();
-        var categoryIndex = Integer.parseInt(input);
+
+        Integer categoryIndex = null;
+
+        while (categoryIndex == null) {
+            categoryIndex = readInt();
+        }
 
         switch (categoryIndex) {
             case 1:
@@ -105,5 +114,16 @@ public class Main {
            System.out.println("Please enter your username:");
            userName = System.console().readLine();
        }
+    }
+
+    private static Integer readInt() {
+        var input = System.console().readLine();
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number");
+            System.out.println("Please provide a valid number");
+            return null;
+        }
     }
 }

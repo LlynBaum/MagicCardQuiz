@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface IQuiz {
     void start();
-    Map<String, Integer> getNextQuestion();
+    QuizQuestion getNextQuestion();
     boolean checkAnswer(int index);
     QuizResult end();
 }
