@@ -27,7 +27,7 @@ public class Main {
 
             quiz.start();
             for (var q = 0; q < ROUNDS; q++) {
-                System.out.println("----------" + " Question " + (q + 1) + "/" + ROUNDS + " ----------");
+                System.out.println("---------- Question " + (q + 1) + "/" + ROUNDS + " ----------");
                 askQuestion(quiz);
             }
             var result = quiz.end();
