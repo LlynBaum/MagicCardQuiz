@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MagicCardQuiz" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="ch.bbw.lb.Main" />
+    <module name="MagicCardQuiz" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
