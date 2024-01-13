@@ -1,9 +1,7 @@
 package ch.bbw.lb;
 
-import ch.bbw.lb.quiz.CostsQuiz;
-import ch.bbw.lb.quiz.IQuiz;
-import ch.bbw.lb.quiz.PowerQuiz;
-import ch.bbw.lb.quiz.ToughnessQuiz;
+import ch.bbw.lb.quiz.Quiz;
+import ch.bbw.lb.quiz.QuizType;
 
 import java.util.Objects;
 
@@ -39,13 +37,13 @@ public class Main {
         }
     }
 
-    private static void askQuestion(IQuiz quiz) {
+    private static void askQuestion(Quiz quiz) {
         var question = quiz.getNextQuestion();
 
-        System.out.println(question.getQuestion());
+        System.out.println(question.question());
         System.out.println("Choose one of the following answers:");
 
-        var answers = question.getAnswers();
+        var answers = question.answers();
         for (var i = 0; i < answers.length; i++) {
             System.out.println((i + 1) + ". " + answers[i]);
         }
@@ -56,12 +54,12 @@ public class Main {
             answerIndex = readInt();
         }
 
-        var isCorrect = quiz.checkAnswer(answerIndex);
+        var isCorrect = quiz.checkAnswer(question.answers()[answerIndex - 1]);
         var resultString = isCorrect ? "Correct!" : "Wrong!";
         System.out.println(resultString);
     }
 
-    private static IQuiz setUpQuiz() {
+    private static Quiz setUpQuiz() {
 
         Integer categoryIndex = null;
 
@@ -71,11 +69,11 @@ public class Main {
 
         switch (categoryIndex) {
             case 1:
-                return new CostsQuiz(userName);
+                return new Quiz(userName, QuizType.COST);
             case 2:
-                return new PowerQuiz(userName);
+                return new Quiz(userName, QuizType.POWER);
             case 3:
-                return new ToughnessQuiz(userName);
+                return new Quiz(userName, QuizType.TOUGHNESS);
             default:
                 System.out.println("Invalid category index");
                 System.out.println("Please provide a valid category index");
