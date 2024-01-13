@@ -1,15 +1,15 @@
 package ch.bbw.lb.quiz;
 
-import ch.bbw.lb.db.PowerQueryHandler;
+import ch.bbw.lb.db.QuizQueryHandler;
 
 import java.util.Map;
 
 public class ToughnessQuiz implements IQuiz {
 
-    private final PowerQueryHandler powerQueryHandler;
+    private final QuizQueryHandler quizQueryHandler;
 
     public ToughnessQuiz(String username) {
-        powerQueryHandler = new PowerQueryHandler(username);
+        quizQueryHandler = new QuizQueryHandler(username);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ToughnessQuiz implements IQuiz {
     }
 
     @Override
-    public Statistics end() {
+    public QuizResult end() {
         return null;
     }
 }

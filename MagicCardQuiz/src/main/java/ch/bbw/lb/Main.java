@@ -16,9 +16,9 @@ public class Main {
         printTitle();
         login();
 
-        String again = "y";
+        var isPlayAgain = true;
 
-        while (Objects.equals(again, "y")) {
+        while (isPlayAgain) {
             printMenu();
             var quiz = setUpQuiz();
             if(quiz == null) {
@@ -27,19 +27,15 @@ public class Main {
 
             quiz.start();
             for (var q = 0; q < ROUNDS; q++) {
+                System.out.println("----------" + " Question " + (q + 1) + "/" + ROUNDS + " ----------");
                 askQuestion(quiz);
             }
             var result = quiz.end();
 
-            System.out.println("You got " + result.correctAnswers() + " answers correct!");
-            System.out.println("You got " + result.wrongAnswers() + " answers wrong!");
+            System.out.println("You had " + result.correctAnswers() + "/" + ROUNDS + " correct answers!");
+            System.out.println("You had " + result.wrongAnswers() + "/" + ROUNDS + " wrong answers!");
 
-            System.out.println("Do you want to play again? (y/n)");
-            again = System.console().readLine();
-            if(Objects.equals(again, "n")) {
-                userName = null;
-                break;
-            }
+            isPlayAgain = getPlayAgain();
         }
     }
 
@@ -96,6 +92,12 @@ public class Main {
         System.out.println(topLine);
         System.out.println(middleLine);
         System.out.println(bottomLine);
+    }
+
+    private static boolean getPlayAgain() {
+        System.out.println("Do you want to play again? (y/n)");
+        var input = System.console().readLine();
+        return Objects.equals(input, "y");
     }
 
     private static void login() {

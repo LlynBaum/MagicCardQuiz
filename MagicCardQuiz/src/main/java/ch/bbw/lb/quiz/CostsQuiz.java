@@ -1,15 +1,15 @@
 package ch.bbw.lb.quiz;
 
-import ch.bbw.lb.db.CostsQueryHandler;
+import ch.bbw.lb.db.QuizQueryHandler;
 
 import java.util.Map;
 
 public class CostsQuiz implements IQuiz {
 
-    private final CostsQueryHandler costsQueryHandler;
+    private final QuizQueryHandler quizQueryHandler;
 
     public CostsQuiz(String userName) {
-        costsQueryHandler = new CostsQueryHandler(userName);
+        quizQueryHandler = new QuizQueryHandler(userName);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class CostsQuiz implements IQuiz {
     }
 
     @Override
-    public Statistics end() {
+    public QuizResult end() {
         return null;
     }
 }
