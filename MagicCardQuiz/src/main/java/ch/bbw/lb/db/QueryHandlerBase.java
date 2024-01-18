@@ -8,12 +8,7 @@ import org.bson.Document;
 
 public abstract class QueryHandlerBase {
     private static final String CONNECTION_STRING = "mongodb://localhost:27017/MagicCardQuiz";
-    private String userName;
     protected MongoClient mongoClient;
-
-    public QueryHandlerBase(String userName) {
-        this.userName = userName;
-    }
 
     protected MongoCollection<Document> initMongoClient(String collectionName) {
         if (mongoClient == null) {

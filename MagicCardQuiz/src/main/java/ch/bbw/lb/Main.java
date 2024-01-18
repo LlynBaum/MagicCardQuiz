@@ -76,11 +76,11 @@ public class Main {
 
         switch (categoryIndex) {
             case 1:
-                return new Quiz(userName, QuizType.COST);
+                return new Quiz(QuizType.COST);
             case 2:
-                return new Quiz(userName, QuizType.POWER);
+                return new Quiz(QuizType.POWER);
             case 3:
-                return new Quiz(userName, QuizType.TOUGHNESS);
+                return new Quiz(QuizType.TOUGHNESS);
             default:
                 System.out.println("Invalid category index");
                 System.out.println("Please provide a valid category index");

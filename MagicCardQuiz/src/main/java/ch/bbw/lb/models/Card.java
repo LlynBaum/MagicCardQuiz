@@ -1,5 +1,7 @@
 package ch.bbw.lb.models;
 
+import org.bson.Document;
+
 public class Card {
 
     private String name;
@@ -9,13 +11,24 @@ public class Card {
     private int power;
     private int toughness;
 
-    public Card(String name, String type, String rarity, int cost, int power, int toughness) {
+    private Card(String name, String type, String rarity, int cost, int power, int toughness) {
         this.name = name;
         this.type = type;
         this.rarity = rarity;
         this.cost = cost;
         this.power = power;
         this.toughness = toughness;
+    }
+
+    public static Card fromDb(Document document) {
+        return new Card(
+                document.getString("name"),
+                document.getString("type"),
+                document.getString("rarity"),
+                document.getInteger("cost", 0),
+                document.getInteger("power", 0),
+                document.getInteger("toughness", 0)
+        );
     }
 
     public String getName() {

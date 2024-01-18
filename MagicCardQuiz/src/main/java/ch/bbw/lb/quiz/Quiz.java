@@ -14,8 +14,8 @@ public class Quiz {
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
 
-    public Quiz(String userName, QuizType quizType) {
-        quizQueryHandler = new QuizQueryHandler(userName);
+    public Quiz(QuizType quizType) {
+        quizQueryHandler = new QuizQueryHandler();
         this.quizType = quizType;
     }
 
