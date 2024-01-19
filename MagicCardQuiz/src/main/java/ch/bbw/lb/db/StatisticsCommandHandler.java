@@ -10,7 +10,7 @@ public class StatisticsCommandHandler extends DatabaseBase {
         this.userName = userName;
     }
 
-    public void saveGameResult(int correctAnswers, int wrongAnswers, int durationInMilliseconds) {
+    public void saveGameResult(int correctAnswers, int wrongAnswers, long durationInMilliseconds) {
         var collection = initMongoClient("statistics");
         var document = new Document()
                 .append("userName", userName)

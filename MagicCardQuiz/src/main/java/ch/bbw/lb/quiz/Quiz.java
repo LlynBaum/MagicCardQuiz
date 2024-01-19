@@ -1,11 +1,16 @@
 package ch.bbw.lb.quiz;
 
 import ch.bbw.lb.db.QuizQueryHandler;
+import ch.bbw.lb.db.StatisticsCommandHandler;
+import ch.bbw.lb.db.StatisticsQueryHandler;
 import ch.bbw.lb.models.QuizQueryResult;
 
 public class Quiz {
 
     private final QuizQueryHandler quizQueryHandler;
+
+    private final StatisticsCommandHandler statisticsCommandHandler;
+    private final StatisticsQueryHandler statisticsQueryHandler;
 
     private final QuizType quizType;
 
@@ -16,8 +21,10 @@ public class Quiz {
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
 
-    public Quiz(QuizType quizType) {
+    public Quiz(QuizType quizType, String userName) {
         quizQueryHandler = new QuizQueryHandler();
+        statisticsCommandHandler = new StatisticsCommandHandler(userName);
+        statisticsQueryHandler = new StatisticsQueryHandler();
         this.quizType = quizType;
     }
 
@@ -53,6 +60,10 @@ public class Quiz {
     public QuizResult end() {
         var endTime = System.currentTimeMillis();
         var durationInMilliseconds = endTime - startTime;
-        return new QuizResult(correctAnswers, wrongAnswers, durationInMilliseconds);
+
+        statisticsCommandHandler.saveGameResult(correctAnswers, wrongAnswers, durationInMilliseconds);
+        var statisticEntries = statisticsQueryHandler.getTopThree();
+
+        return new QuizResult(correctAnswers, wrongAnswers, durationInMilliseconds, statisticEntries);
     }
 }

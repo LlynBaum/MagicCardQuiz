@@ -1,5 +1,7 @@
 package ch.bbw.lb.quiz;
 
-public record QuizResult(int correctAnswers, int wrongAnswers, long durationInMilliseconds) {
+import ch.bbw.lb.models.StatisticEntry;
+
+public record QuizResult(int correctAnswers, int wrongAnswers, long durationInMilliseconds, StatisticEntry[] topThree) {
 
 }

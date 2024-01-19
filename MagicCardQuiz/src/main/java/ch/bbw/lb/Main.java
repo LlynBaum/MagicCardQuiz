@@ -1,6 +1,7 @@
 package ch.bbw.lb;
 
 import ch.bbw.lb.quiz.Quiz;
+import ch.bbw.lb.quiz.QuizResult;
 import ch.bbw.lb.quiz.QuizType;
 
 import java.util.Objects;
@@ -31,11 +32,7 @@ public class Main {
                 askQuestion(quiz);
             }
             var result = quiz.end();
-
-            System.out.println("---------- Result ----------");
-            System.out.println("You took " + toSeconds(result.durationInMilliseconds()) + " seconds to answer all questions!");
-            System.out.println("You had " + result.correctAnswers() + "/" + ROUNDS + " correct answers!");
-            System.out.println("You had " + result.wrongAnswers() + "/" + ROUNDS + " wrong answers!");
+            printResult(result);
 
             isPlayAgain = getPlayAgain();
         }
@@ -68,6 +65,21 @@ public class Main {
         System.out.println(resultString);
     }
 
+    private static void printResult(QuizResult result) {
+        System.out.println("---------- Result ----------");
+        System.out.println("You took " + toSeconds(result.durationInMilliseconds()) + " seconds to answer all questions!");
+        System.out.println("You had " + result.correctAnswers() + "/" + ROUNDS + " correct answers!");
+        System.out.println("You had " + result.wrongAnswers() + "/" + ROUNDS + " wrong answers!");
+
+        System.out.println("---------- Top 3 ----------");
+        var topThree = result.topThree();
+
+        for (var i = 0; i < topThree.length; i++) {
+            var entry = topThree[i];
+            System.out.println((i + 1) + ". " + entry.getUserName() + " - " + entry.getCorrectAnswers() + "/" + (entry.getCorrectAnswers() + entry.getWrongAnswers()) + " correct answers in " + toSeconds(entry.getDurationInMilliseconds()) + " seconds");
+        }
+    }
+
     private static Quiz setUpQuiz() {
 
         Integer categoryIndex = null;
@@ -78,11 +90,11 @@ public class Main {
 
         switch (categoryIndex) {
             case 1:
-                return new Quiz(QuizType.COST);
+                return new Quiz(QuizType.COST, userName);
             case 2:
-                return new Quiz(QuizType.POWER);
+                return new Quiz(QuizType.POWER, userName);
             case 3:
-                return new Quiz(QuizType.TOUGHNESS);
+                return new Quiz(QuizType.TOUGHNESS, userName);
             default:
                 System.out.println("Invalid category index");
                 System.out.println("Please provide a valid category index");

@@ -8,7 +8,7 @@ import java.util.*;
 
 public class StatisticsQueryHandler extends DatabaseBase {
 
-    public StatisticEntry[] getTopThree(int correctAnswers, int wrongAnswers, int durationInMilliseconds) {
+    public StatisticEntry[] getTopThree() {
         var collection = initMongoClient("statistics");
 
         var sortCriteria = new Document("correctAnswers", -1).append("durationInMilliseconds", 1);
