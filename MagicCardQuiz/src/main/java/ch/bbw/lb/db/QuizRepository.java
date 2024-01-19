@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizQueryHandler extends DatabaseBase {
+public class QuizRepository extends RepositoryBase {
 
     public QuizQueryResult getQuestion(String property) {
         try {

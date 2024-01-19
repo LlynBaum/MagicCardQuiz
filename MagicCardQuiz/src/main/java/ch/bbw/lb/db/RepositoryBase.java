@@ -5,7 +5,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
-public abstract class DatabaseBase {
+public abstract class RepositoryBase {
     private static final String CONNECTION_STRING = "mongodb://localhost:27017/MagicCardQuiz";
     protected MongoClient mongoClient;
 

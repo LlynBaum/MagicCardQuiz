@@ -1,16 +1,14 @@
 package ch.bbw.lb.quiz;
 
-import ch.bbw.lb.db.QuizQueryHandler;
-import ch.bbw.lb.db.StatisticsCommandHandler;
-import ch.bbw.lb.db.StatisticsQueryHandler;
+import ch.bbw.lb.db.QuizRepository;
+import ch.bbw.lb.db.StatisticsRepository;
 import ch.bbw.lb.models.QuizQueryResult;
 
 public class Quiz {
 
-    private final QuizQueryHandler quizQueryHandler;
+    private final QuizRepository quizQueryHandler;
 
-    private final StatisticsCommandHandler statisticsCommandHandler;
-    private final StatisticsQueryHandler statisticsQueryHandler;
+    private final StatisticsRepository statisticsRepository;
 
     private final QuizType quizType;
 
@@ -22,9 +20,8 @@ public class Quiz {
     private int wrongAnswers = 0;
 
     public Quiz(QuizType quizType, String userName) {
-        quizQueryHandler = new QuizQueryHandler();
-        statisticsCommandHandler = new StatisticsCommandHandler(userName);
-        statisticsQueryHandler = new StatisticsQueryHandler();
+        quizQueryHandler = new QuizRepository();
+        statisticsRepository = new StatisticsRepository(userName);
         this.quizType = quizType;
     }
 
@@ -61,8 +58,8 @@ public class Quiz {
         var endTime = System.currentTimeMillis();
         var durationInMilliseconds = endTime - startTime;
 
-        statisticsCommandHandler.saveGameResult(correctAnswers, wrongAnswers, durationInMilliseconds);
-        var statisticEntries = statisticsQueryHandler.getTopThree();
+        statisticsRepository.saveGameResult(correctAnswers, wrongAnswers, durationInMilliseconds);
+        var statisticEntries = statisticsRepository.getTopThree();
 
         return new QuizResult(correctAnswers, wrongAnswers, durationInMilliseconds, statisticEntries);
     }
