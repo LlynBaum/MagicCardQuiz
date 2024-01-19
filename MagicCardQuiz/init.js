@@ -2,6 +2,7 @@ db = db.getSiblingDB('MagicCardQuiz');
 
 db.createCollection("statistics");
 db.createCollection("cards");
+db.createCollection("achievements");
 
 db.cards.insertMany([
     {
@@ -155,6 +156,59 @@ db.cards.insertMany([
         "cost": 3,
         "power": 2,
         "toughness": 2
+    }
+]);
+
+db.achievements.insertMany([
+    {
+        "id": 1,
+        "name": "First Game",
+        "description": "Play your first game",
+    },
+    {
+        "id": 2,
+        "name": "100% Correct",
+        "description": "Answer all questions correctly",
+    },
+    {
+        "id": 3,
+        "name": "100% Wrong",
+        "description": "Answer all questions incorrectly",
+    },
+    {
+        "id": 4,
+        "name": "10 Games",
+        "description": "Play 10 games",
+    },
+    {
+        "id": 5,
+        "name": "Speedrunner",
+        "description": "Answer all questions in under 25 seconds",
+    },
+    {
+        "id": 6,
+        "name": "Slowpoke",
+        "description": "Answer all questions in over 2 minutes",
+    },
+    {
+        "id": 7,
+        "name": "warp speed",
+        "description": "Answer one question in under 1 second",
+    },
+    {
+        "id": 8,
+        "name": "The Flash",
+        "description": "Answer all questions in under 1 minute",
+    },
+    {
+        "id": 9,
+        "name": "Cheater",
+        "description": "Answer all questions correctly in under 5 seconds",
+    },
+    {
+        "id": 10,
+        "name": "Identity Crisis",
+        "description": "Answer all questions incorrectly in under 5 seconds",
     }
 ]);
 

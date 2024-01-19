@@ -1,22 +1,27 @@
 package ch.bbw.lb.db;
 
+import ch.bbw.lb.models.Achievement;
 import org.bson.Document;
+
+import java.util.List;
 
 public class AchievementsRepository extends RepositoryBase {
 
-
-    private final String userName;
-
-    public AchievementsRepository(String userName) {
-        this.userName = userName;
-    }
-
-    public void addAchievement(String name, String description) {
+    public Achievement getAchievement(int id) {
         var collection = initMongoClient("achievements");
+        var pipeline = new Document("$match", new Document("id", id));
 
-        var document = new Document("userName", userName)
-                .append("name", name)
-                .append("description", description);
+        var achievement = collection.aggregate(List.of(pipeline)).first();
+        if(achievement == null) {
+            return null;
+        }
+        return documentToAchievement(achievement);
     }
 
+    private Achievement documentToAchievement(Document document) {
+        return new Achievement(
+                document.getInteger("id"),
+                document.getString("name"),
+                document.getString("description"));
+    }
 }
