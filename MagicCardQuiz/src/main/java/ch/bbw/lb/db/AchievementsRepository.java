@@ -21,11 +21,22 @@ public class AchievementsRepository extends RepositoryBase {
         if (existingUser != null) {
             Document updateQuery = new Document("$push", new Document("achievementsIds", achievementId));
             collection.updateOne(existingUser, updateQuery);
-        } else {
-            Document newUser = new Document("userName", userName)
-                    .append("achievementsIds", List.of(achievementId));
-            collection.insertOne(newUser);
+            return;
         }
+
+        var pipeline = List.of(
+                new Document("$match", new Document("userName", userName)),
+                new Document("$unwind", "$achievementsIds"),
+                new Document("$match", new Document("achievementsIds", achievementId))
+        );
+        var result = collection.aggregate(pipeline).into(new ArrayList<>());
+        if (!result.isEmpty()) {
+            return;
+        }
+
+        Document newUser = new Document("userName", userName)
+                .append("achievementsIds", List.of(achievementId));
+        collection.insertOne(newUser);
     }
 
     public Achievement[] getAchievementsFromUser() {

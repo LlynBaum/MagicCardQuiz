@@ -16,6 +16,15 @@ public class StatisticsRepository extends RepositoryBase {
         this.userName = userName;
     }
 
+    public int getNumberOfGamesPlayed() {
+        var collection = initMongoClient("statistics");
+        var pipeline = new Document("$match", new Document("userName", userName));
+        pipeline.append("$count", "numberOfGamesPlayed");
+
+        var result = collection.aggregate(List.of(pipeline)).into(new ArrayList<>());
+        return result.isEmpty() ? 0 : result.get(0).getInteger("numberOfGamesPlayed");
+    }
+
     public void saveGameResult(int correctAnswers, int wrongAnswers, long durationInMilliseconds) {
         var collection = initMongoClient("statistics");
         var document = new Document()

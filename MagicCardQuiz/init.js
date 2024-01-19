@@ -168,7 +168,7 @@ db.achievements.insertMany([
     },
     {
         "id": 2,
-        "name": "100% Correct",
+            "name": "100% Correct",
         "description": "Answer all questions correctly",
     },
     {
