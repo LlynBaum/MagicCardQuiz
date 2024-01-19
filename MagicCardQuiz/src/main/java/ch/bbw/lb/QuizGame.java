@@ -4,6 +4,8 @@ import ch.bbw.lb.quiz.Quiz;
 import ch.bbw.lb.quiz.QuizResult;
 import ch.bbw.lb.quiz.QuizType;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -48,6 +50,7 @@ public class QuizGame {
         System.out.println("Choose one of the following answers:");
 
         var answers = question.answers();
+        Collections.shuffle(Arrays.asList(answers));
         for (var i = 0; i < answers.length; i++) {
             System.out.println((i + 1) + ". " + answers[i]);
         }
