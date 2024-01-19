@@ -1,5 +1,6 @@
 package ch.bbw.lb.quiz;
 
+import ch.bbw.lb.db.AchievementsRepository;
 import ch.bbw.lb.db.QuizRepository;
 import ch.bbw.lb.db.StatisticsRepository;
 import ch.bbw.lb.models.QuizQueryResult;
@@ -9,6 +10,8 @@ public class Quiz {
     private final QuizRepository quizQueryHandler;
 
     private final StatisticsRepository statisticsRepository;
+
+    private final AchievementsRepository achievementsRepository;
 
     private final QuizType quizType;
 
@@ -22,6 +25,7 @@ public class Quiz {
     public Quiz(QuizType quizType, String userName) {
         quizQueryHandler = new QuizRepository();
         statisticsRepository = new StatisticsRepository(userName);
+        achievementsRepository = new AchievementsRepository(userName);
         this.quizType = quizType;
     }
 

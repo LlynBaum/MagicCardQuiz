@@ -1,8 +1,9 @@
 db = db.getSiblingDB('MagicCardQuiz');
 
-db.createCollection("statistics");
 db.createCollection("cards");
 db.createCollection("achievements");
+db.createCollection("statistics");
+db.createCollection("userAchievements");
 
 db.cards.insertMany([
     {
