@@ -42,15 +42,14 @@ public class StatisticsRepository extends RepositoryBase {
         var groupFields = new Document("_id", null)
                 .append("entries", new Document("$push", "$$ROOT"));
 
-        var aggregationPipeline = new Document("$sort", sortCriteria);
-        aggregationPipeline.append("$group", groupFields);
-        aggregationPipeline.append("$project", new Document("bestEntries", new Document("$slice", Arrays.asList("$entries", 3))));
+        var aggregationPipeline = Arrays.asList(
+                new Document("$sort", sortCriteria),
+                new Document("$group", groupFields),
+                new Document("$project", new Document("bestEntries", new Document("$slice", Arrays.asList("$entries", 3))))
+        );
 
-        var result = collection.aggregate(Collections
-                        .singletonList(Document.parse(aggregationPipeline.toJson())))
-                .into(new ArrayList<>());
-
-        return mapToCards(result);
+        var result = collection.aggregate(aggregationPipeline).into(new ArrayList<>());
+        return mapToCards(result.get(0).getList("bestEntries", Document.class));
     }
 
     private static StatisticEntry[] mapToCards(List<Document> documents) {

@@ -33,6 +33,9 @@ public class Main {
                 case 3 -> System.exit(0);
                 default -> System.out.println("Please enter a valid number!");
             }
+
+            printMainMenu();
+            input = scanner.nextLine();
         }
 
         QuizGame.play(userName);

@@ -10,9 +10,9 @@ public class StatisticEntry {
 
     private int wrongAnswers;
 
-    private int durationInMilliseconds;
+    private long durationInMilliseconds;
 
-    public StatisticEntry(String userName, int correctAnswers, int wrongAnswers, int durationInMilliseconds) {
+    public StatisticEntry(String userName, int correctAnswers, int wrongAnswers, long durationInMilliseconds) {
         this.userName = userName;
         this.correctAnswers = correctAnswers;
         this.wrongAnswers = wrongAnswers;
@@ -24,7 +24,7 @@ public class StatisticEntry {
                 document.getString("userName"),
                 document.getInteger("correctAnswers"),
                 document.getInteger("wrongAnswers"),
-                document.getInteger("durationInMilliseconds")
+                document.getLong("durationInMilliseconds")
         );
     }
 
@@ -40,7 +40,7 @@ public class StatisticEntry {
         return wrongAnswers;
     }
 
-    public int getDurationInMilliseconds() {
+    public long getDurationInMilliseconds() {
         return durationInMilliseconds;
     }
 }
