@@ -18,10 +18,12 @@ public class StatisticsRepository extends RepositoryBase {
 
     public int getNumberOfGamesPlayed() {
         var collection = initMongoClient("statistics");
-        var pipeline = new Document("$match", new Document("userName", userName));
-        pipeline.append("$count", "numberOfGamesPlayed");
+        var pipeline = Arrays.asList(
+                new Document("$match", new Document("userName", userName)),
+                new Document("$count", "numberOfGamesPlayed")
+        );
 
-        var result = collection.aggregate(List.of(pipeline)).into(new ArrayList<>());
+        var result = collection.aggregate(pipeline).into(new ArrayList<>());
         return result.isEmpty() ? 0 : result.get(0).getInteger("numberOfGamesPlayed");
     }
 
