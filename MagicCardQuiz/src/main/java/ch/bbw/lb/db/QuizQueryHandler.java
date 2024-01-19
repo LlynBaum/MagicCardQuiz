@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizQueryHandler extends QueryHandlerBase {
+public class QuizQueryHandler extends DatabaseBase {
 
     public QuizQueryResult getQuestion(String property) {
         try {
@@ -20,8 +20,6 @@ public class QuizQueryHandler extends QueryHandlerBase {
             )).into(new ArrayList<>());
 
             var cards = mapToCards(randomCards);
-            System.out.println("Got question: " + cards[0].getName());
-
             closeMongoClient();
             return new QuizQueryResult(cards, cards[0].getName());
 

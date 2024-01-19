@@ -11,6 +11,8 @@ public class Quiz {
 
     private QuizQueryResult currentQuestion;
 
+    private long startTime;
+
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
 
@@ -20,6 +22,7 @@ public class Quiz {
     }
 
     public void start() {
+        startTime = System.currentTimeMillis();
         System.out.println("Costs quiz started");
     }
 
@@ -48,6 +51,8 @@ public class Quiz {
     }
 
     public QuizResult end() {
-        return new QuizResult(correctAnswers, wrongAnswers);
+        var endTime = System.currentTimeMillis();
+        var durationInMilliseconds = endTime - startTime;
+        return new QuizResult(correctAnswers, wrongAnswers, durationInMilliseconds);
     }
 }

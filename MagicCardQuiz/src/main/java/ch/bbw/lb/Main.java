@@ -32,6 +32,8 @@ public class Main {
             }
             var result = quiz.end();
 
+            System.out.println("---------- Result ----------");
+            System.out.println("You took " + toSeconds(result.durationInMilliseconds()) + " seconds to answer all questions!");
             System.out.println("You had " + result.correctAnswers() + "/" + ROUNDS + " correct answers!");
             System.out.println("You had " + result.wrongAnswers() + "/" + ROUNDS + " wrong answers!");
 
@@ -130,5 +132,9 @@ public class Main {
             System.out.println("Please provide a valid number");
             return null;
         }
+    }
+
+    private static int toSeconds(long milliseconds) {
+        return (int) (milliseconds / 1000);
     }
 }

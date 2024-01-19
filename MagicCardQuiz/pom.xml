@@ -20,6 +20,12 @@
             <artifactId>mongodb-driver-sync</artifactId>
             <version>4.11.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.32</version> <!-- Use the latest version available -->
+        </dependency>
     </dependencies>
+
 
 </project>
