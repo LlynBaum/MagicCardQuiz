@@ -54,7 +54,7 @@ public class Quiz {
         var endTime = System.currentTimeMillis();
         var durationInMilliseconds = endTime - questionStartTime;
         if(durationInMilliseconds <= 1000) {
-            achievementsRepository.addAchievementToUser(AchievementType.WARP_SPEED.id());
+            achievementsRepository.addAchievementToUser(AchievementType.WARP_SPEED);
         }
 
         var result = currentQuestion.nameOfCorrectCard().equals(cardName);
@@ -73,7 +73,7 @@ public class Quiz {
         statisticsRepository.saveGameResult(correctAnswers, wrongAnswers, durationInMilliseconds);
         var statisticEntries = statisticsRepository.getTopThree();
 
-        achievementsRepository.addAchievementToUser(AchievementType.FIRST_WIN.id());
+        achievementsRepository.addAchievementToUser(AchievementType.FIRST_WIN);
         checkAchievements();
         checkTimeAchievements(durationInMilliseconds, correctAnswers);
 
@@ -82,13 +82,13 @@ public class Quiz {
 
     private void checkAchievements() {
         if(correctAnswers == 0) {
-            achievementsRepository.addAchievementToUser(AchievementType.ALL_WRONG_ANSWERS.id());
+            achievementsRepository.addAchievementToUser(AchievementType.ALL_WRONG_ANSWERS);
         }
         if(wrongAnswers == 0) {
-            achievementsRepository.addAchievementToUser(AchievementType.All_CORRECT_ANSWERS.id());
+            achievementsRepository.addAchievementToUser(AchievementType.All_CORRECT_ANSWERS);
         }
         if(statisticsRepository.getNumberOfGamesPlayed() == 10) {
-            achievementsRepository.addAchievementToUser(AchievementType.TEN_GAMES.id());
+            achievementsRepository.addAchievementToUser(AchievementType.TEN_GAMES);
         }
     }
 
@@ -96,19 +96,19 @@ public class Quiz {
         var seconds = durationInMilliseconds / 1000;
 
         if(seconds <= 25) {
-            achievementsRepository.addAchievementToUser(AchievementType.SPEEDRUNNER.id());
+            achievementsRepository.addAchievementToUser(AchievementType.SPEEDRUNNER);
         }
         if(seconds > 120) {
-            achievementsRepository.addAchievementToUser(AchievementType.SLOWPOKE.id());
+            achievementsRepository.addAchievementToUser(AchievementType.SLOWPOKE);
         }
         if(seconds <= 60) {
-            achievementsRepository.addAchievementToUser(AchievementType.THE_FLASH.id());
+            achievementsRepository.addAchievementToUser(AchievementType.THE_FLASH);
         }
         if(correctAnswers == 5 && seconds <= 5) {
-            achievementsRepository.addAchievementToUser(AchievementType.CHEATER.id());
+            achievementsRepository.addAchievementToUser(AchievementType.CHEATER);
         }
         if(correctAnswers == 0 && seconds <= 5) {
-            achievementsRepository.addAchievementToUser(AchievementType.IDENTITY_CRISIS.id());
+            achievementsRepository.addAchievementToUser(AchievementType.IDENTITY_CRISIS);
         }
     }
 }

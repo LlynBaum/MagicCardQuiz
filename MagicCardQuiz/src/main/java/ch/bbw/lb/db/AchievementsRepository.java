@@ -1,6 +1,7 @@
 package ch.bbw.lb.db;
 
 import ch.bbw.lb.models.Achievement;
+import ch.bbw.lb.quiz.AchievementType;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -14,12 +15,12 @@ public class AchievementsRepository extends RepositoryBase {
         this.userName = userName;
     }
 
-    public void addAchievementToUser(int achievementId) {
+    public void addAchievementToUser(AchievementType achievement) {
         var collection = initMongoClient("userAchievements");
         var existingUser = collection.find(new Document("userName", userName)).first();
 
         if (existingUser != null) {
-            Document updateQuery = new Document("$push", new Document("achievementsIds", achievementId));
+            Document updateQuery = new Document("$push", new Document("achievementsIds", achievement.id()));
             collection.updateOne(existingUser, updateQuery);
             return;
         }
@@ -27,7 +28,7 @@ public class AchievementsRepository extends RepositoryBase {
         var pipeline = List.of(
                 new Document("$match", new Document("userName", userName)),
                 new Document("$unwind", "$achievementsIds"),
-                new Document("$match", new Document("achievementsIds", achievementId))
+                new Document("$match", new Document("achievementsIds", achievement.id()))
         );
         var result = collection.aggregate(pipeline).into(new ArrayList<>());
         if (!result.isEmpty()) {
@@ -35,7 +36,7 @@ public class AchievementsRepository extends RepositoryBase {
         }
 
         Document newUser = new Document("userName", userName)
-                .append("achievementsIds", List.of(achievementId));
+                .append("achievementsIds", List.of(achievement.id()));
         collection.insertOne(newUser);
     }
 
