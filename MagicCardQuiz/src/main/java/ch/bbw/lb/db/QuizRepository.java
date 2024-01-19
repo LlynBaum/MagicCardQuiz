@@ -15,7 +15,6 @@ public class QuizRepository extends RepositoryBase {
 
             var randomCards = collection.aggregate(List.of(
                     new Document("$sample", new Document("size", 3)),
-                    new Document("$sort", new Document(property, -1)),
                     new Document("$project", new Document("name", 1).append(property, 1))
             )).into(new ArrayList<>());
 
