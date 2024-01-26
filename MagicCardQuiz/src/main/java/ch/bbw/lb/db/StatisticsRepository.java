@@ -41,17 +41,14 @@ public class StatisticsRepository extends RepositoryBase {
         var collection = initMongoClient("statistics");
 
         var sortCriteria = new Document("correctAnswers", -1).append("durationInMilliseconds", 1);
-        var groupFields = new Document("_id", null)
-                .append("entries", new Document("$push", "$$ROOT"));
 
         var aggregationPipeline = Arrays.asList(
                 new Document("$sort", sortCriteria),
-                new Document("$group", groupFields),
-                new Document("$project", new Document("bestEntries", new Document("$slice", Arrays.asList("$entries", 3))))
+                new Document("$limit", 3)
         );
 
         var result = collection.aggregate(aggregationPipeline).into(new ArrayList<>());
-        return mapToCards(result.get(0).getList("bestEntries", Document.class));
+        return mapToCards(result);
     }
 
     private static StatisticEntry[] mapToCards(List<Document> documents) {
